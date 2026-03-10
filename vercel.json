@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "portfolio.html", "use": "@vercel/static" },
-    { "src": "*.jpg",          "use": "@vercel/static" }
-  ],
   "routes": [
+    { "src": "/api/fetch-url", "dest": "/api/fetch-url.js" },
+    { "src": "/audit",         "dest": "/audit.html" },
     { "src": "/",              "dest": "/portfolio.html" },
     { "src": "/(.*\\.jpg)",    "dest": "/$1" },
     { "src": "/(.*)",          "dest": "/portfolio.html" }
@@ -13,8 +11,7 @@
     {
       "source": "/portfolio.html",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
     },
     {

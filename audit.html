@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Website Audit — MDR</title>
+<meta name="description" content="Get a free instant website audit from MDR. Check your SEO, mobile, speed, security, and more in seconds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23E03131'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-weight='900' font-size='20' fill='white'>M</text></svg>">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --red: #E03131;
+  --black: #0D0D0D;
+  --gray: #F5F5F5;
+  --text: #444;
+  --border: #E8E8E8;
+  --green: #16a34a;
+  --yellow: #d97706;
+  --nav-h: 72px;
+}
+body { font-family: 'Outfit', sans-serif; background: #FAFAFA; color: var(--black); }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  z-index: 100;
+}
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--black); text-decoration: none; }
+.nav-logo span { color: var(--red); }
+nav a.btn-nav {
+  background: var(--red); color: #fff;
+  padding: 10px 22px; border-radius: 100px;
+  font-size: 0.88rem; font-weight: 600; text-decoration: none;
+  transition: opacity 0.2s;
+}
+nav a.btn-nav:hover { opacity: 0.85; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  padding: calc(var(--nav-h) + 80px) 24px 80px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  background: linear-gradient(160deg, #fff 60%, #FFF5F5 100%);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #FFF0F0; border: 1px solid rgba(224,49,49,0.2);
+  color: var(--red); font-size: 0.78rem; font-weight: 600;
+  padding: 6px 14px; border-radius: 100px; margin-bottom: 24px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.hero-badge span { width: 6px; height: 6px; background: var(--red); border-radius: 50%; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 900; line-height: 1.1;
+  margin-bottom: 20px;
+}
+.hero h1 em { color: var(--red); font-style: italic; }
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #666; max-width: 540px;
+  line-height: 1.7; margin-bottom: 48px;
+}
+
+/* AUDIT FORM */
+.audit-form-wrap {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 40px;
+  width: 100%; max-width: 580px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+}
+.audit-form-wrap label {
+  display: block; font-size: 0.82rem; font-weight: 600;
+  color: #888; text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.url-input-row {
+  display: flex; gap: 10px; margin-bottom: 16px;
+}
+.url-input-row input {
+  flex: 1;
+  border: 2px solid var(--border); border-radius: 12px;
+  padding: 14px 18px; font-size: 1rem; font-family: 'Outfit', sans-serif;
+  outline: none; transition: border 0.2s;
+}
+.url-input-row input:focus { border-color: var(--red); }
+.url-input-row input::placeholder { color: #bbb; }
+.btn-audit {
+  background: var(--red); color: #fff;
+  border: none; border-radius: 12px;
+  padding: 14px 28px; font-size: 1rem; font-weight: 700;
+  cursor: pointer; white-space: nowrap;
+  transition: background 0.2s, transform 0.1s;
+  font-family: 'Outfit', sans-serif;
+}
+.btn-audit:hover { background: #c92a2a; }
+.btn-audit:active { transform: scale(0.98); }
+.btn-audit:disabled { background: #ccc; cursor: not-allowed; }
+
+.audit-checks {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 16px; justify-content: center;
+}
+.audit-check-tag {
+  background: var(--gray); border-radius: 100px;
+  padding: 5px 12px; font-size: 0.75rem; font-weight: 500; color: #777;
+}
+
+/* RESULTS */
+#results { display: none; padding: 80px 24px; max-width: 860px; margin: 0 auto; }
+
+.score-header {
+  text-align: center; margin-bottom: 60px;
+}
+.score-circle-wrap {
+  display: inline-flex; flex-direction: column; align-items: center;
+  margin-bottom: 24px;
+}
+.score-circle {
+  width: 140px; height: 140px; border-radius: 50%;
+  border: 8px solid var(--border);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  margin-bottom: 12px; position: relative;
+}
+.score-circle.good  { border-color: var(--green); }
+.score-circle.okay  { border-color: var(--yellow); }
+.score-circle.poor  { border-color: var(--red); }
+.score-num { font-size: 3rem; font-weight: 900; line-height: 1; }
+.score-circle.good  .score-num { color: var(--green); }
+.score-circle.okay  .score-num { color: var(--yellow); }
+.score-circle.poor  .score-num { color: var(--red); }
+.score-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; }
+
+.score-site-url { font-size: 0.9rem; color: #888; margin-bottom: 8px; }
+.score-verdict {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700; margin-bottom: 12px;
+}
+.score-summary { font-size: 1rem; color: #666; max-width: 500px; margin: 0 auto; line-height: 1.7; }
+
+/* CHECK ITEMS */
+.checks-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; margin-bottom: 48px;
+}
+.check-item {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px 22px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.check-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+.check-icon.pass  { background: #f0fdf4; color: var(--green); }
+.check-icon.warn  { background: #fffbeb; color: var(--yellow); }
+.check-icon.fail  { background: #fef2f2; color: var(--red); }
+.check-body h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+.check-body p  { font-size: 0.8rem; color: #777; line-height: 1.5; }
+.check-status {
+  margin-top: 6px; font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.check-status.pass { color: var(--green); }
+.check-status.warn { color: var(--yellow); }
+.check-status.fail { color: var(--red); }
+
+/* CTA BLOCK */
+.results-cta {
+  background: var(--black); color: #fff;
+  border-radius: 20px; padding: 48px 40px;
+  text-align: center; margin-bottom: 48px;
+}
+.results-cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 900; margin-bottom: 12px;
+}
+.results-cta p { color: rgba(255,255,255,0.65); margin-bottom: 32px; font-size: 1rem; line-height: 1.7; }
+.results-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-red {
+  background: var(--red); color: #fff;
+  padding: 16px 32px; border-radius: 100px;
+  font-size: 1rem; font-weight: 700; text-decoration: none;
+  transition: opacity 0.2s; display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-red:hover { opacity: 0.85; }
+.btn-ghost {
+  background: rgba(255,255,255,0.1); color: #fff;
+  padding: 16px 32px; border-radius: 100px;
+  font-size: 1rem; font-weight: 600; text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: background 0.2s; display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.15); }
+
+/* EMAIL CAPTURE */
+.email-capture {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 20px; padding: 36px 40px; margin-bottom: 48px;
+  text-align: center;
+}
+.email-capture h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+.email-capture p { color: #666; font-size: 0.9rem; margin-bottom: 24px; }
+.email-row { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
+.email-row input {
+  flex: 1; border: 2px solid var(--border); border-radius: 12px;
+  padding: 13px 16px; font-size: 0.95rem; font-family: 'Outfit', sans-serif;
+  outline: none; transition: border 0.2s;
+}
+.email-row input:focus { border-color: var(--red); }
+.email-row button {
+  background: var(--red); color: #fff;
+  border: none; border-radius: 12px;
+  padding: 13px 22px; font-size: 0.92rem; font-weight: 600;
+  cursor: pointer; font-family: 'Outfit', sans-serif;
+  transition: background 0.2s;
+}
+.email-row button:hover { background: #c92a2a; }
+#email-sent { display: none; color: var(--green); font-weight: 600; margin-top: 12px; }
+
+/* LOADING */
+#loading {
+  display: none; text-align: center;
+  padding: 80px 24px;
+}
+.loading-spinner {
+  width: 48px; height: 48px;
+  border: 4px solid var(--border);
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 24px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-steps { display: flex; flex-direction: column; gap: 12px; max-width: 320px; margin: 0 auto; }
+.loading-step {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 0.9rem; color: #666;
+  opacity: 0; transition: opacity 0.4s;
+}
+.loading-step.active { opacity: 1; color: var(--black); font-weight: 500; }
+.step-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border); flex-shrink: 0;
+}
+.loading-step.active .step-dot { background: var(--red); }
+
+/* FOOTER */
+footer {
+  text-align: center; padding: 32px 24px;
+  border-top: 1px solid var(--border);
+  color: #aaa; font-size: 0.82rem;
+}
+footer a { color: var(--red); text-decoration: none; }
+
+/* MOBILE */
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .hero { padding: calc(var(--nav-h) + 48px) 20px 60px; }
+  .audit-form-wrap { padding: 28px 20px; }
+  .url-input-row { flex-direction: column; }
+  .checks-grid { grid-template-columns: 1fr; }
+  .results-cta { padding: 36px 24px; }
+  .email-capture { padding: 28px 20px; }
+  .email-row { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">MDR<span>.</span></a>
+  <a href="/#contact" class="btn-nav">Start a Project →</a>
+</nav>
+
+<!-- HERO / INPUT -->
+<section class="hero" id="home">
+  <div class="hero-badge"><span></span> Free Instant Audit</div>
+  <h1>Is your website <em>costing</em><br>you customers?</h1>
+  <p class="hero-sub">Enter your URL and get a free website audit in 10 seconds. We check SEO, mobile, speed, security, and more.</p>
+
+  <div class="audit-form-wrap">
+    <label>Your Website URL</label>
+    <div class="url-input-row">
+      <input type="url" id="urlInput" placeholder="https://yourbusiness.com" autocomplete="off" spellcheck="false" />
+      <button class="btn-audit" id="auditBtn" onclick="runAudit()">Audit Now →</button>
+    </div>
+    <div class="audit-checks">
+      <span class="audit-check-tag">SEO</span>
+      <span class="audit-check-tag">Mobile</span>
+      <span class="audit-check-tag">Speed</span>
+      <span class="audit-check-tag">Security</span>
+      <span class="audit-check-tag">Accessibility</span>
+      <span class="audit-check-tag">Social</span>
+      <span class="audit-check-tag">Performance</span>
+    </div>
+  </div>
+</section>
+
+<!-- LOADING -->
+<div id="loading">
+  <div class="loading-spinner"></div>
+  <p style="font-size:1.1rem;font-weight:600;margin-bottom:32px;">Analyzing your website…</p>
+  <div class="loading-steps">
+    <div class="loading-step" id="step1"><div class="step-dot"></div>Fetching your website</div>
+    <div class="loading-step" id="step2"><div class="step-dot"></div>Checking SEO tags</div>
+    <div class="loading-step" id="step3"><div class="step-dot"></div>Testing mobile readiness</div>
+    <div class="loading-step" id="step4"><div class="step-dot"></div>Analyzing security</div>
+    <div class="loading-step" id="step5"><div class="step-dot"></div>Scoring performance</div>
+    <div class="loading-step" id="step6"><div class="step-dot"></div>Building your report</div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="results">
+  <div class="score-header">
+    <p class="score-site-url" id="scoreSiteUrl"></p>
+    <div class="score-circle-wrap">
+      <div class="score-circle" id="scoreCircle">
+        <span class="score-num" id="scoreNum">—</span>
+        <span class="score-label">/ 100</span>
+      </div>
+    </div>
+    <p class="score-verdict" id="scoreVerdict"></p>
+    <p class="score-summary" id="scoreSummary"></p>
+  </div>
+
+  <div class="checks-grid" id="checksGrid"></div>
+
+  <div class="email-capture">
+    <h3>Get this report emailed to you</h3>
+    <p>We'll send a full PDF breakdown with specific recommendations for your site.</p>
+    <div class="email-row">
+      <input type="email" id="emailInput" placeholder="your@email.com" />
+      <button onclick="sendReport()">Send Report</button>
+    </div>
+    <p id="email-sent">✓ Report sent! Check your inbox.</p>
+  </div>
+
+  <div class="results-cta">
+    <h2>Ready to fix it?</h2>
+    <p>MDR builds custom-coded websites that score 90+ and actually convert visitors into customers. No templates. No page builders. Just clean, fast code.</p>
+    <div class="results-cta-btns">
+      <a href="/#contact" class="btn-red">Get a Free Quote →</a>
+      <a href="/#pricing" class="btn-ghost">See Pricing</a>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-bottom:48px;">
+    <button onclick="location.reload()" style="background:none;border:1px solid var(--border);border-radius:100px;padding:12px 24px;font-size:0.9rem;font-family:'Outfit',sans-serif;cursor:pointer;color:#666;">← Audit Another Website</button>
+  </div>
+</div>
+
+<footer>
+  <p>Free website audit by <a href="/">MDR</a> · Custom websites that convert · <a href="/#contact">Start a project</a></p>
+</footer>
+
+<script>
+const AUDIT_API = '/api/fetch-url';
+
+async function runAudit() {
+  const input = document.getElementById('urlInput');
+  let url = input.value.trim();
+  if (!url) { input.focus(); return; }
+  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+  // Show loading
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('auditBtn').disabled = true;
+
+  // Animate loading steps
+  const steps = ['step1','step2','step3','step4','step5','step6'];
+  let si = 0;
+  const stepInterval = setInterval(() => {
+    if (si < steps.length) {
+      if (si > 0) document.getElementById(steps[si-1]).style.opacity = '0.4';
+      document.getElementById(steps[si]).classList.add('active');
+      si++;
+    }
+  }, 600);
+
+  try {
+    const res = await fetch(`${AUDIT_API}?url=${encodeURIComponent(url)}`);
+    const data = await res.json();
+    clearInterval(stepInterval);
+
+    if (data.error) {
+      alert('Could not reach that URL. Please check it and try again.');
+      resetForm();
+      return;
+    }
+
+    const checks = analyzeHtml(data.html, data.isHttps, data.loadTime, url);
+    displayResults(url, checks);
+  } catch(e) {
+    clearInterval(stepInterval);
+    alert('Something went wrong. Please try again.');
+    resetForm();
+  }
+}
+
+function analyzeHtml(html, isHttps, loadTime, url) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+
+  const checks = [];
+
+  // 1. HTTPS
+  checks.push({
+    id: 'https',
+    name: 'HTTPS / SSL Security',
+    icon: '🔒',
+    status: isHttps ? 'pass' : 'fail',
+    detail: isHttps
+      ? 'Your site uses HTTPS. Good — Google gives preference to secure sites.'
+      : 'Your site is not on HTTPS. This harms SEO and trust. Google flags it as "Not Secure."'
+  });
+
+  // 2. Title tag
+  const title = doc.querySelector('title');
+  const titleText = title?.textContent?.trim() || '';
+  const titleLen = titleText.length;
+  checks.push({
+    id: 'title',
+    name: 'Page Title Tag',
+    icon: '📝',
+    status: titleLen >= 30 && titleLen <= 65 ? 'pass' : titleLen > 0 ? 'warn' : 'fail',
+    detail: titleLen === 0
+      ? 'No title tag found. This is critical for SEO — Google uses it as the main search result headline.'
+      : titleLen < 30
+        ? `Title is too short (${titleLen} chars): "${titleText.substring(0,50)}". Aim for 30–65 characters.`
+        : titleLen > 65
+          ? `Title is too long (${titleLen} chars) and will be cut off in search results.`
+          : `Title looks good (${titleLen} chars): "${titleText.substring(0,50)}…"`
+  });
+
+  // 3. Meta description
+  const metaDesc = doc.querySelector('meta[name="description"]');
+  const descText = metaDesc?.getAttribute('content')?.trim() || '';
+  const descLen = descText.length;
+  checks.push({
+    id: 'meta-desc',
+    name: 'Meta Description',
+    icon: '📄',
+    status: descLen >= 100 && descLen <= 165 ? 'pass' : descLen > 0 ? 'warn' : 'fail',
+    detail: descLen === 0
+      ? 'No meta description found. This is the snippet Google shows in search results — you\'re missing clicks.'
+      : descLen < 100
+        ? `Description is too short (${descLen} chars). Aim for 120–160 characters.`
+        : descLen > 165
+          ? `Description too long (${descLen} chars) and will be truncated in search results.`
+          : `Meta description looks great (${descLen} chars).`
+  });
+
+  // 4. Viewport / mobile
+  const viewport = doc.querySelector('meta[name="viewport"]');
+  const vpContent = viewport?.getAttribute('content') || '';
+  const isMobile = vpContent.includes('width=device-width');
+  checks.push({
+    id: 'mobile',
+    name: 'Mobile Optimization',
+    icon: '📱',
+    status: isMobile ? 'pass' : 'fail',
+    detail: isMobile
+      ? 'Mobile viewport is configured correctly. Google uses mobile-first indexing.'
+      : 'No mobile viewport tag found. Your site likely looks broken on phones. Google will penalize your rankings.'
+  });
+
+  // 5. H1 heading
+  const h1s = doc.querySelectorAll('h1');
+  checks.push({
+    id: 'h1',
+    name: 'H1 Heading Tag',
+    icon: '🏷️',
+    status: h1s.length === 1 ? 'pass' : h1s.length === 0 ? 'fail' : 'warn',
+    detail: h1s.length === 0
+      ? 'No H1 tag found. Every page should have exactly one H1 that describes what the page is about.'
+      : h1s.length > 1
+        ? `Found ${h1s.length} H1 tags. Pages should have exactly one — multiple H1s confuse search engines.`
+        : `H1 found: "${h1s[0]?.textContent?.trim()?.substring(0,50)}". Good.`
+  });
+
+  // 6. OG / Social
+  const ogTitle = doc.querySelector('meta[property="og:title"]');
+  const ogImage = doc.querySelector('meta[property="og:image"]');
+  const hasSocial = !!(ogTitle && ogImage);
+  checks.push({
+    id: 'social',
+    name: 'Social Media Preview',
+    icon: '🔗',
+    status: hasSocial ? 'pass' : ogTitle || ogImage ? 'warn' : 'fail',
+    detail: hasSocial
+      ? 'Open Graph tags set. Your links will display rich previews when shared on social media.'
+      : (!ogTitle && !ogImage)
+        ? 'No Open Graph tags. When someone shares your site on social media, it shows as plain text with no image — very low click rate.'
+        : 'Partial Open Graph tags. Both og:title and og:image are needed for proper social previews.'
+  });
+
+  // 7. Image alt tags
+  const images = doc.querySelectorAll('img');
+  const imagesWithoutAlt = Array.from(images).filter(img => !img.getAttribute('alt')).length;
+  const imgStatus = images.length === 0 ? 'warn' : imagesWithoutAlt === 0 ? 'pass' : imagesWithoutAlt <= 2 ? 'warn' : 'fail';
+  checks.push({
+    id: 'alt',
+    name: 'Image Alt Text',
+    icon: '🖼️',
+    status: imgStatus,
+    detail: images.length === 0
+      ? 'No images found on this page.'
+      : imagesWithoutAlt === 0
+        ? `All ${images.length} images have alt text. Good for accessibility and SEO.`
+        : `${imagesWithoutAlt} of ${images.length} images are missing alt text. Search engines can't "see" images without alt tags.`
+  });
+
+  // 8. Page speed (estimate from load time)
+  const speedStatus = loadTime < 2000 ? 'pass' : loadTime < 4000 ? 'warn' : 'fail';
+  checks.push({
+    id: 'speed',
+    name: 'Server Response Speed',
+    icon: '⚡',
+    status: speedStatus,
+    detail: loadTime < 2000
+      ? `Fast! Server responded in ${loadTime}ms. Great for user experience and SEO.`
+      : loadTime < 4000
+        ? `Moderate speed — ${loadTime}ms response time. Aim for under 2 seconds. Slow sites lose visitors.`
+        : `Slow — ${loadTime}ms response time. 53% of users leave if a page takes over 3 seconds to load.`
+  });
+
+  // 9. Canonical tag
+  const canonical = doc.querySelector('link[rel="canonical"]');
+  checks.push({
+    id: 'canonical',
+    name: 'Canonical URL',
+    icon: '🔍',
+    status: canonical ? 'pass' : 'warn',
+    detail: canonical
+      ? `Canonical URL is set: ${canonical.getAttribute('href')?.substring(0,60)}.`
+      : 'No canonical tag. Without it, Google may treat www vs non-www versions as duplicate pages, splitting your SEO.'
+  });
+
+  // 10. Schema / structured data
+  const schema = doc.querySelector('script[type="application/ld+json"]');
+  checks.push({
+    id: 'schema',
+    name: 'Structured Data (Schema)',
+    icon: '🧩',
+    status: schema ? 'pass' : 'warn',
+    detail: schema
+      ? 'Structured data found. This helps Google understand your content and can unlock rich snippets in search results.'
+      : 'No structured data found. Adding schema markup helps Google display rich results (star ratings, hours, etc.) and improves click-through rates.'
+  });
+
+  return checks;
+}
+
+function displayResults(url, checks) {
+  document.getElementById('loading').style.display = 'none';
+
+  const passed = checks.filter(c => c.status === 'pass').length;
+  const warned = checks.filter(c => c.status === 'warn').length;
+  const failed = checks.filter(c => c.status === 'fail').length;
+  const total = checks.length;
+
+  // Score: pass=10pts, warn=5pts, fail=0pts
+  const score = Math.round((passed * 10 + warned * 5) / (total * 10) * 100);
+
+  // Display URL
+  try {
+    const u = new URL(url);
+    document.getElementById('scoreSiteUrl').textContent = u.hostname;
+  } catch(e) {
+    document.getElementById('scoreSiteUrl').textContent = url;
+  }
+
+  // Score circle
+  const circle = document.getElementById('scoreCircle');
+  const num = document.getElementById('scoreNum');
+  num.textContent = score;
+  circle.className = 'score-circle ' + (score >= 75 ? 'good' : score >= 50 ? 'okay' : 'poor');
+
+  // Verdict
+  const verdict = document.getElementById('scoreVerdict');
+  const summary = document.getElementById('scoreSummary');
+  if (score >= 75) {
+    verdict.textContent = 'Your site is in good shape.';
+    summary.textContent = `Scored ${score}/100. You passed ${passed} of ${total} checks. A few tweaks could push you to the top.`;
+  } else if (score >= 50) {
+    verdict.textContent = 'Room for improvement.';
+    summary.textContent = `Scored ${score}/100. ${failed} critical issue${failed !== 1 ? 's' : ''} and ${warned} warning${warned !== 1 ? 's' : ''} found. These are costing you traffic and conversions.`;
+  } else {
+    verdict.textContent = 'Your site needs work.';
+    summary.textContent = `Scored ${score}/100. ${failed} critical issue${failed !== 1 ? 's' : ''} found. A poorly optimized site means fewer visitors, fewer leads, and lower search rankings.`;
+  }
+
+  // Render checks
+  const grid = document.getElementById('checksGrid');
+  grid.innerHTML = checks.map(c => `
+    <div class="check-item">
+      <div class="check-icon ${c.status}">${c.icon}</div>
+      <div class="check-body">
+        <h3>${c.name}</h3>
+        <p>${c.detail}</p>
+        <p class="check-status ${c.status}">${c.status === 'pass' ? '✓ Pass' : c.status === 'warn' ? '⚠ Needs Attention' : '✗ Issue Found'}</p>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Store for email
+  window._auditUrl = url;
+  window._auditScore = score;
+}
+
+function sendReport() {
+  const email = document.getElementById('emailInput').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('emailInput').focus();
+    return;
+  }
+
+  const url = window._auditUrl || 'Unknown';
+  const score = window._auditScore || 0;
+
+  const subject = encodeURIComponent(`MDR Website Audit — Lead: ${email} (Score: ${score}/100)`);
+  const body = encodeURIComponent(
+    `New audit lead!\n\n` +
+    `Email: ${email}\n` +
+    `Website audited: ${url}\n` +
+    `Score: ${score}/100\n\n` +
+    `Follow up and offer a free consultation.`
+  );
+
+  // Send to MDR email
+  window.open(`mailto:Rod.jarv13@gmail.com?subject=${subject}&body=${body}`);
+
+  document.getElementById('email-sent').style.display = 'block';
+  document.getElementById('emailInput').disabled = true;
+}
+
+function resetForm() {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('home').style.display = 'flex';
+  document.getElementById('auditBtn').disabled = false;
+}
+
+// Allow Enter key
+document.getElementById('urlInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') runAudit();
+});
+</script>
+</body>
+</html>
