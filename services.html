@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — MDR Digital</title>
+<meta name="description" content="Web design, local SEO, care plans, and more for local businesses. MDR Digital builds and grows your online presence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23E03131'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-weight='900' font-size='20' fill='white'>M</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#E03131;
+  --black:#0D0D0D;
+  --gray:#F7F7F7;
+  --border:#EBEBEB;
+  --text:#555;
+  --nav-h:72px;
+}
+body{font-family:'Outfit',sans-serif;background:#fff;color:var(--black);overflow-x:hidden}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  height:var(--nav-h);
+  background:rgba(255,255,255,0.97);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;z-index:100;
+}
+.logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--black);text-decoration:none}
+.logo span{color:var(--red)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{text-decoration:none;font-size:.9rem;font-weight:500;color:#444;transition:.2s}
+.nav-links a:hover{color:var(--red)}
+.nav-cta{background:var(--red);color:#fff!important;padding:10px 22px;border-radius:100px;font-weight:600}
+.nav-cta:hover{opacity:.85}
+.audit-btn{background:#fff;color:var(--red)!important;border:2px solid var(--red);padding:8px 20px;border-radius:100px;font-weight:600;margin-right:4px}
+
+/* HERO */
+.hero{
+  min-height:58vh;
+  padding:calc(var(--nav-h) + 80px) 24px 80px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  background:linear-gradient(160deg,#fff 55%,#FFF5F5 100%);
+}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#FFF0F0;border:1px solid rgba(224,49,49,.2);
+  color:var(--red);font-size:.78rem;font-weight:600;
+  padding:6px 14px;border-radius:100px;margin-bottom:24px;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.badge span{width:6px;height:6px;background:var(--red);border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,6vw,4.8rem);font-weight:900;line-height:1.1;margin-bottom:20px}
+.hero h1 em{color:var(--red);font-style:italic}
+.hero-sub{font-size:clamp(1rem,2vw,1.15rem);color:#666;max-width:560px;line-height:1.75;margin-bottom:40px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.btn-primary{background:var(--red);color:#fff;padding:14px 32px;border-radius:100px;font-weight:600;text-decoration:none;font-size:.95rem;transition:.2s}
+.btn-primary:hover{opacity:.85;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--black);border:1.5px solid var(--border);padding:14px 32px;border-radius:100px;font-weight:600;text-decoration:none;font-size:.95rem;transition:.2s}
+.btn-ghost:hover{border-color:var(--red);color:var(--red)}
+
+/* SERVICES GRID */
+.services{padding:100px 24px;background:#fff}
+.section-label{text-align:center;margin-bottom:64px}
+.section-label .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+.section-label h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900}
+.section-label h2 em{color:var(--red);font-style:italic}
+.section-label p{color:var(--text);font-size:1.05rem;margin-top:14px;max-width:540px;margin-left:auto;margin-right:auto;line-height:1.7}
+
+.services-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px}
+
+.service-card{
+  border:1.5px solid var(--border);border-radius:20px;
+  padding:40px;transition:.3s;position:relative;overflow:hidden;
+  background:#fff;
+}
+.service-card:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 16px 40px rgba(224,49,49,.08)}
+.service-card.featured{border-color:var(--red);background:linear-gradient(135deg,#fff9f9 0%,#fff 100%)}
+.service-card.featured::before{
+  content:'Most Popular';position:absolute;top:20px;right:20px;
+  background:var(--red);color:#fff;font-size:.72rem;font-weight:700;
+  padding:4px 12px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase;
+}
+.service-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:#FFF0F0;display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;font-size:1.4rem;
+}
+.service-card h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:8px}
+.service-card .tagline{color:var(--red);font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
+.service-card p{color:var(--text);font-size:.95rem;line-height:1.75;margin-bottom:24px}
+.service-card ul{list-style:none;margin-bottom:28px}
+.service-card ul li{display:flex;align-items:flex-start;gap:10px;font-size:.9rem;color:#444;padding:5px 0;border-bottom:1px solid var(--border)}
+.service-card ul li:last-child{border:none}
+.service-card ul li::before{content:'✓';color:var(--red);font-weight:700;flex-shrink:0;margin-top:1px}
+.price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:24px}
+.price{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900}
+.price-sub{color:var(--text);font-size:.88rem}
+.card-cta{
+  display:block;text-align:center;
+  background:var(--black);color:#fff;
+  padding:13px 24px;border-radius:100px;
+  font-weight:600;font-size:.9rem;text-decoration:none;
+  transition:.2s;
+}
+.card-cta:hover{background:var(--red)}
+.service-card.featured .card-cta{background:var(--red)}
+.service-card.featured .card-cta:hover{background:#c02020}
+
+/* PROCESS */
+.process{padding:100px 24px;background:var(--gray)}
+.process-inner{max-width:900px;margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-top:60px}
+.step{text-align:center}
+.step-num{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--red);color:#fff;
+  font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;
+}
+.step h4{font-weight:700;margin-bottom:8px;font-size:1.05rem}
+.step p{color:var(--text);font-size:.88rem;line-height:1.65}
+
+/* AUDIT CTA BANNER */
+.audit-banner{
+  padding:80px 24px;
+  background:var(--black);text-align:center;
+}
+.audit-banner h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:16px}
+.audit-banner h2 em{color:var(--red);font-style:italic}
+.audit-banner p{color:rgba(255,255,255,.6);font-size:1.05rem;margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7}
+.audit-banner .btn-primary{font-size:1rem;padding:16px 40px}
+
+/* FAQ */
+.faq{padding:100px 24px;background:#fff}
+.faq-inner{max-width:720px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border);padding:24px 0}
+.faq-item:first-child{border-top:1px solid var(--border)}
+.faq-q{font-weight:700;font-size:1.05rem;margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'+';color:var(--red);font-size:1.4rem;font-weight:300}
+.faq-a{color:var(--text);font-size:.95rem;line-height:1.75}
+
+/* FOOTER */
+footer{background:var(--black);padding:40px 24px;text-align:center}
+footer p{color:rgba(255,255,255,.35);font-size:.85rem}
+footer a{color:rgba(255,255,255,.5);text-decoration:none}
+footer a:hover{color:var(--red)}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero{padding-top:calc(var(--nav-h) + 60px)}
+  .services,.process,.faq{padding:70px 20px}
+  .service-card{padding:28px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">MDR<span>.</span></a>
+  <div class="nav-links">
+    <a href="/#projects">Work</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/services">Services</a>
+    <a href="/audit" class="audit-btn">Free Audit</a>
+    <a href="/#contact" class="nav-cta">Start a Project</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge"><span></span> Full-Service Digital Agency</div>
+  <h1>Everything Your Business<br>Needs to <em>Win Online</em></h1>
+  <p class="hero-sub">Websites, SEO, social media, email, branding, and more — we handle all of it so you can focus on running your business.</p>
+  <div class="hero-ctas">
+    <a href="/audit" class="btn-primary">Get Your Free Website Score</a>
+    <a href="/#contact" class="btn-ghost">Talk to Us</a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="section-label">
+    <p class="eyebrow">What We Do</p>
+    <h2>Eleven Ways We <em>Grow</em> Your Business</h2>
+    <p>Every service is designed to get you more calls, more customers, and more revenue — not just a pretty website.</p>
+  </div>
+
+  <div class="services-grid">
+
+    <!-- 1. Website Design -->
+    <div class="service-card featured">
+      <div class="service-icon">🖥️</div>
+      <div class="tagline">Core Service</div>
+      <h3>Website Design & Build</h3>
+      <p>A fast, mobile-first website that looks sharp, loads in under 2 seconds, and turns visitors into paying customers. Built on modern tech — no slow WordPress bloat.</p>
+      <ul>
+        <li>Custom design — no templates</li>
+        <li>Mobile optimized</li>
+        <li>Fast hosting on Vercel CDN</li>
+        <li>Contact forms + click-to-call</li>
+        <li>SEO foundation built-in</li>
+        <li>Delivered in 5–7 business days</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$1,200</span>
+        <span class="price-sub">one-time</span>
+      </div>
+      <a href="/#contact" class="card-cta">Start Your Project →</a>
+    </div>
+
+    <!-- 2. Monthly Care Plan -->
+    <div class="service-card">
+      <div class="service-icon">🛡️</div>
+      <div class="tagline">Recurring Revenue Starter</div>
+      <h3>Monthly Care Plan</h3>
+      <p>Your website needs maintenance. We handle updates, security monitoring, speed optimization, backups, and up to 2 hours of content changes per month.</p>
+      <ul>
+        <li>Monthly backups & security scans</li>
+        <li>Speed & performance monitoring</li>
+        <li>2 hrs/mo content updates</li>
+        <li>Uptime monitoring + alerts</li>
+        <li>Priority email support</li>
+        <li>Monthly performance report</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$199</span>
+        <span class="price-sub">/ month</span>
+      </div>
+      <a href="/#contact" class="card-cta">Add to My Site →</a>
+    </div>
+
+    <!-- 3. Local SEO -->
+    <div class="service-card">
+      <div class="service-icon">📍</div>
+      <div class="tagline">Get Found on Google</div>
+      <h3>Local SEO Package</h3>
+      <p>Show up when customers search for what you do in your city. We optimize your Google presence so you rank above competitors and get more calls from local searches.</p>
+      <ul>
+        <li>Google Business Profile setup & optimization</li>
+        <li>Local keyword research + targeting</li>
+        <li>Schema markup for local business</li>
+        <li>Citation building (20+ directories)</li>
+        <li>Monthly ranking report</li>
+        <li>Competitor gap analysis</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$399</span>
+        <span class="price-sub">setup + $149/mo</span>
+      </div>
+      <a href="/#contact" class="card-cta">Boost My Rankings →</a>
+    </div>
+
+    <!-- 4. Google Business Profile -->
+    <div class="service-card">
+      <div class="service-icon">⭐</div>
+      <div class="tagline">Quick Win</div>
+      <h3>Google Business Profile Setup</h3>
+      <p>Most businesses have a neglected GBP that's costing them customers daily. We claim it, fully optimize it, and set it up to generate calls and directions without ads.</p>
+      <ul>
+        <li>Claim & verify your listing</li>
+        <li>Complete profile setup (photos, services, hours)</li>
+        <li>Keyword-optimized business description</li>
+        <li>Q&A and product/service listings</li>
+        <li>First-month post calendar</li>
+        <li>Review response templates</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$249</span>
+        <span class="price-sub">one-time</span>
+      </div>
+      <a href="/#contact" class="card-cta">Optimize My GBP →</a>
+    </div>
+
+    <!-- 5. Landing Page Sprint -->
+    <div class="service-card">
+      <div class="service-icon">⚡</div>
+      <div class="tagline">48-Hour Turnaround</div>
+      <h3>Landing Page Sprint</h3>
+      <p>Need a page fast? Seasonal promotion, new service launch, Google Ads campaign. We build a single high-converting page in 48 hours — designed to get calls, not just clicks.</p>
+      <ul>
+        <li>One focused conversion page</li>
+        <li>48-hour delivery</li>
+        <li>A/B-tested headline options</li>
+        <li>Lead capture form or click-to-call</li>
+        <li>Mobile optimized</li>
+        <li>Live on your domain or standalone</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$799</span>
+        <span class="price-sub">flat rate</span>
+      </div>
+      <a href="/#contact" class="card-cta">Launch My Page →</a>
+    </div>
+
+    <!-- 6. Review Generation -->
+    <div class="service-card">
+      <div class="service-icon">💬</div>
+      <div class="tagline">More 5-Star Reviews</div>
+      <h3>Review Generation System</h3>
+      <p>Most businesses have 15 reviews when they should have 200. We set up an automated follow-up system that asks happy customers for Google reviews — on autopilot.</p>
+      <ul>
+        <li>Custom SMS + email follow-up templates</li>
+        <li>Direct link to your Google review page</li>
+        <li>Automated send sequence (3 touchpoints)</li>
+        <li>Response templates for all review types</li>
+        <li>Integration with your existing tools</li>
+        <li>Setup guide + training included</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$299</span>
+        <span class="price-sub">setup</span>
+      </div>
+      <a href="/#contact" class="card-cta">Get More Reviews →</a>
+    </div>
+
+    <!-- 7. Social Media Management -->
+    <div class="service-card featured">
+      <div class="service-icon">📱</div>
+      <div class="tagline">New</div>
+      <h3>Social Media Management</h3>
+      <p>We write, design briefs, and schedule 16 posts per month across Instagram and Facebook. Your business stays active and professional online — without you lifting a finger.</p>
+      <ul>
+        <li>16 posts/month (captions + hashtags)</li>
+        <li>Instagram & Facebook covered</li>
+        <li>Monthly content calendar delivered upfront</li>
+        <li>Branded post templates</li>
+        <li>Story ideas + highlight covers</li>
+        <li>Monthly engagement report</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$349</span>
+        <span class="price-sub">/ month</span>
+      </div>
+      <a href="/#contact" class="card-cta">Grow My Socials →</a>
+    </div>
+
+    <!-- 8. Email Marketing -->
+    <div class="service-card">
+      <div class="service-icon">📧</div>
+      <div class="tagline">Stay Top of Mind</div>
+      <h3>Email Marketing Setup</h3>
+      <p>Turn your customer list into repeat business. We set up your email platform, write a welcome sequence, and deliver a monthly newsletter that keeps customers coming back.</p>
+      <ul>
+        <li>Email platform setup (Mailchimp/Klaviyo)</li>
+        <li>3-email welcome sequence written</li>
+        <li>Branded newsletter template</li>
+        <li>Monthly newsletter written & sent</li>
+        <li>List segmentation + tags</li>
+        <li>Open rate & click reporting</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$249</span>
+        <span class="price-sub">setup + $149/mo</span>
+      </div>
+      <a href="/#contact" class="card-cta">Start My Email List →</a>
+    </div>
+
+    <!-- 9. Brand Identity Kit -->
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <div class="tagline">Look the Part</div>
+      <h3>Brand Identity Kit</h3>
+      <p>Logo, colors, fonts, and brand voice — all in one document your whole business can use. Stop looking inconsistent across your website, van wrap, and business cards.</p>
+      <ul>
+        <li>Logo concepts (3 directions)</li>
+        <li>Color palette + usage guide</li>
+        <li>Font pairings (primary + secondary)</li>
+        <li>Brand voice & tone guide</li>
+        <li>Business card design ready-to-print</li>
+        <li>All files delivered (PNG, SVG, PDF)</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$599</span>
+        <span class="price-sub">one-time</span>
+      </div>
+      <a href="/#contact" class="card-cta">Build My Brand →</a>
+    </div>
+
+    <!-- 10. Competitor Analysis -->
+    <div class="service-card">
+      <div class="service-icon">🔍</div>
+      <div class="tagline">Know Your Market</div>
+      <h3>Competitor Analysis Report</h3>
+      <p>We audit your top 5 local competitors — their websites, SEO, reviews, and social media — and identify exactly where you can beat them. Data-driven, not guesswork.</p>
+      <ul>
+        <li>5 competitor website audits</li>
+        <li>Google ranking comparison</li>
+        <li>Review volume & rating analysis</li>
+        <li>Social media presence review</li>
+        <li>Keyword gap analysis</li>
+        <li>Prioritized action plan delivered</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$349</span>
+        <span class="price-sub">one-time</span>
+      </div>
+      <a href="/#contact" class="card-cta">Spy on My Competitors →</a>
+    </div>
+
+    <!-- 11. Copywriting Package -->
+    <div class="service-card">
+      <div class="service-icon">✍️</div>
+      <div class="tagline">Words That Sell</div>
+      <h3>Website Copywriting</h3>
+      <p>Most websites fail because the words are weak. We write every page from scratch — homepage, about, services, FAQs — with copy designed to convert visitors into calls.</p>
+      <ul>
+        <li>Up to 6 pages written</li>
+        <li>SEO keywords woven in naturally</li>
+        <li>Headline A/B options included</li>
+        <li>CTA strategy for every page</li>
+        <li>One revision round included</li>
+        <li>Delivered in 3 business days</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$499</span>
+        <span class="price-sub">one-time</span>
+      </div>
+      <a href="/#contact" class="card-cta">Write My Site →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="process-inner">
+    <div class="section-label">
+      <p class="eyebrow">How It Works</p>
+      <h2>Simple. Fast. <em>No Runaround.</em></h2>
+      <p>Most agencies take 6 weeks and 40 emails. We don't. Here's how we work.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Free Audit</h4>
+        <p>Run your site through our free audit tool. We grade it across 8 signals and show you exactly what's costing you customers.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Strategy Call</h4>
+        <p>15 minutes on the phone. We learn your business, present a plan, and give you a flat-rate price. No surprises.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>We Build It</h4>
+        <p>You focus on running your business. We design, build, write copy, and handle all the technical stuff.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>You Approve</h4>
+        <p>We show you the finished product. Two rounds of revisions included. When you love it, we go live.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <h4>We Grow It</h4>
+        <p>SEO, care plans, review generation — we keep building on the foundation month over month.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT BANNER -->
+<section class="audit-banner">
+  <h2>Not Sure Where to Start?<br><em>Get Your Free Score.</em></h2>
+  <p>Paste your website URL and get a full breakdown in 30 seconds — no email required.</p>
+  <a href="/audit" class="btn-primary">Run Free Website Audit →</a>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq-inner">
+    <div class="section-label">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions We <em>Always</em> Get</h2>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How long does a website take?</div>
+      <div class="faq-a">Standard websites are delivered in 5–7 business days. Landing pages in 48 hours. We move fast because your business shouldn't be waiting on a website.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I need to sign a long-term contract?</div>
+      <div class="faq-a">Never. Monthly care plans and SEO are month-to-month. Cancel anytime. We keep clients because the work delivers results, not because they're trapped.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if I don't have content or photos?</div>
+      <div class="faq-a">We write all the copy for you and source professional stock photos. Most clients hand us a phone number and a description of their business — that's enough.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can you update my existing website?</div>
+      <div class="faq-a">Sometimes. If your current site is on WordPress or a modern platform, yes. If it's ancient, it's often cheaper to rebuild fresh. We'll give you an honest assessment.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What do I get after the website is live?</div>
+      <div class="faq-a">You own everything. Code, domain, content — it's all yours. We hand over the keys. If you want us to maintain and grow it, our Care Plan is $199/mo. If not, no hard feelings.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 MDR Digital. All rights reserved. &nbsp;·&nbsp; <a href="/">Home</a> &nbsp;·&nbsp; <a href="/audit">Free Audit</a> &nbsp;·&nbsp; <a href="/#contact">Contact</a></p>
+</footer>
+
+</body>
+</html>

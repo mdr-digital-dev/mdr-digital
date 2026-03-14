@@ -3,6 +3,7 @@
   "routes": [
     { "src": "/api/fetch-url", "dest": "/api/fetch-url.js" },
     { "src": "/audit",         "dest": "/audit.html" },
+    { "src": "/services",      "dest": "/services.html" },
     { "src": "/",              "dest": "/portfolio.html" },
     { "src": "/(.*\\.jpg)",    "dest": "/$1" },
     { "src": "/(.*)",          "dest": "/portfolio.html" }
