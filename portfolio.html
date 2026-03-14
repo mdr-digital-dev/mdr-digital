@@ -710,18 +710,18 @@ footer{
 .mob-bar{display:none}
 
 /* ═══════════════════════════════════════
-   SCROLL ANIMATIONS — additive only
+   SCROLL ANIMATIONS — subtle, non-hiding
 ═══════════════════════════════════════ */
 .fade{
-  opacity:0;transform:translateY(20px);
-  transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);
+  transform:translateY(14px);
+  transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);
 }
-.fade.in{opacity:1;transform:translateY(0)}
+.fade.in{transform:translateY(0)}
 .fade-l{
-  opacity:0;transform:translateX(-20px);
-  transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);
+  transform:translateX(-14px);
+  transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);
 }
-.fade-l.in{opacity:1;transform:translateX(0)}
+.fade-l.in{transform:translateX(0)}
 
 /* ═══════════════════════════════════════
    RESPONSIVE 1100
